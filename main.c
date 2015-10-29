@@ -22,12 +22,15 @@
 task main ()
 {
 	// Hand Servo Closed Values
-	int  leftHandClose = 0;
-	int  rightHandClose = 0;
+	int leftHandClose = 0;
+	int leftHandOpen = 127;
+	int leftHandValue = 0;
 
-	// Hand Servo Open Values
-	int  leftHandOpen = 127;
-	int  rightHandOpen = -127;
+	int rightHandClose = 0;
+	int rightHandOpen = -127;
+	int rightHandValue = 0;
+
+	int servoIncrement = 10;
 
 	// Set Hand to closed by default.
 	motor[leftHand] = leftHandClose;
@@ -39,20 +42,36 @@ task main ()
 	while(1 == 1) {
 
 		// Update Wheel Positions to current joystick values
-		motor[leftWheel] = vexRT[Ch3]; // Left Joystick Y value
-		motor[rightWheel] = vexRT[Ch2]; // Right Joystick Y value.
+		//motor[leftWheel] = vexRT[Ch3]; // Left Joystick Y value
+		//motor[rightWheel] = vexRT[Ch2]; // Right Joystick Y value.
 
 		// If Button 8D is pressed open hand.
 		if (vexRT[Btn8D] == 1) {
-			motor[leftHand] = leftHandOpen;
-			motor[rightHand] = rightHandOpen;
+			if (leftHandValue < leftHandOpen) {
+				leftHandValue += servoIncrement;
+			}
+
+			if (rightHandValue > rightHandOpen) {
+				rightHandValue -= servoIncrement;
+			}
+
+			motor[leftHand] = leftHandValue;
+			motor[rightHand] = rightHandValue;
 		} else {
-			motor[leftHand] = leftHandClose;
-			motor[rightHand] = rightHandClose;
+			if (leftHandValue > leftHandClose) {
+				leftHandValue -= servoIncrement;
+			}
+
+			if (rightHandValue < rightHandClose) {
+				rightHandValue += servoIncrement;
+			}
+
+			motor[leftHand] = leftHandValue;
+			motor[rightHand] = rightHandValue;
 		}
 
 		// Add delay to keep this from updating the value every clock cycle
-		delay(1000);
+		delay(2000);
 	}
 
 }
