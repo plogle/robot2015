@@ -1,7 +1,7 @@
-#pragma config(Motor, port3, leftMotor, tmotorVex393_MC29, openLoop)
-#pragma config(Motor, port4, rightMotor, tmotorVex393_MC29, openLoop, reversed)
-#pragma config(Motor, port5, handServo, tmotorServoStandard, openLoop)
-#pragma config(Motor, port7, handServo2, tmotorServoStandard, openLoop)
+#pragma config(Motor, port3, leftWheel, tmotorVex393_MC29, openLoop)
+#pragma config(Motor, port4, rightWheel, tmotorVex393_MC29, openLoop, reversed)
+#pragma config(Motor, port5, handLeft, tmotorServoStandard, openLoop)
+#pragma config(Motor, port7, handRight, tmotorServoStandard, openLoop)
 #pragma config(Motor, port8, handMotor, tmotorVex393_MC29, openLoop)
 #pragma config(Motor, port9, armMotor, tmotorVex269_MC29, openLoop)
 
@@ -30,33 +30,33 @@ task main ()
 
 		// If greater then threshold set, otherwise set to 0
 		if (vexRT[Ch3] > threshold || vexRT[Ch3] < -threshold) {
-			motor[leftMotor] = vexRT[Ch3];   // Left Joystick Y value
+			motor[leftWheel] = vexRT[Ch3];   // Left Joystick Y value
 		} else {
-			motor[leftMotor] = 0;
+			motor[leftWheel] = 0;
 		}
 
 		// If greater then threshold set, otherwise set to 0
 		if (vexRT[Ch2] > threshold || vexRT[Ch2] < -threshold) {
-			motor[rightMotor] = vexRT[Ch2];   // Right Joystick Y value
+			motor[rightWheel] = vexRT[Ch2];   // Right Joystick Y value
 		} else {
-			motor[rightMotor] = 0;
+			motor[rightWheel] = 0;
 		}
 
 		// Open hand
 		if (vexRT[Btn8D] == 1) {
 
-			if (motor[handServo] < maxServoPos) {
-				motor[handServo] = motor[handServo] + servoIncrement;
-				motor[handServo2] = motor[handServo2] - servoIncrement;
+			if (motor[handLeft] < maxServoPos) {
+				motor[handLeft] = motor[handLeft] + servoIncrement;
+				motor[handRight] = motor[handRight] - servoIncrement;
 			}
 		}
 
 		// Close Hand
 		if (vexRT[Btn8U] == 1) {
 
-			if (motor[handServo] > maxServoNeg ) {
-				motor[handServo] = motor[handServo] - servoIncrement;
-				motor[handServo2] = motor[handServo2] + servoIncrement;
+			if (motor[handLeft] > maxServoNeg ) {
+				motor[handLeft] = motor[handLeft] - servoIncrement;
+				motor[handRight] = motor[handRight] + servoIncrement;
 			}
 		}
 
