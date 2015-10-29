@@ -15,6 +15,7 @@ Buttons mapping:
 	Btn5D - Raise Arm
 	Btn6D - Lower Arm
 	Btn8D - Open Hand
+	Btn8U - Closes Hand
 ******************************************/
 
 task main ()
@@ -34,8 +35,8 @@ task main ()
 
 		motor[leftWheel]  = vexRT[Ch3];   // Left Joystick Y value
 		motor[rightWheel] = vexRT[Ch2];   // Right Joystick Y value.
-		motor[armMotor] = vexRT[Ch4];  // Arm motor
-		motor[handMotor] = vexRT[Ch1];  // Hand motor
+		motor[armMotor] = 0;  // Arm motor
+		motor[handMotor] = 0;  // Hand motor
 
 		// Open hand
 		if (vexRT[Btn8D] == 1) {
@@ -50,7 +51,10 @@ task main ()
 			motor[handLeft] = handState1;
 			motor[handRight] = handState2;
 
-		} else {
+		}
+
+		// Close Hand
+		if (vexRT[Btn8U] == 1) {
 
 			if (handState1 > maxServoNeg ) {
 
@@ -62,6 +66,26 @@ task main ()
 			motor[handLeft] = handState1;
 			motor[handRight] = handState2;
 
+		}
+
+		// Button 5D raises
+		if (vexRT[Btn5D] == 1) {
+			motor[armMotor] = 50;
+		}
+
+		// Button 6D lowers
+		if (vexRT[Btn6D] == 1) {
+			motor[armMotor] = -50;
+		}
+
+		// Button 5U rotates left
+		if (vexRt[Btn5U] == 1) {
+			motor[handMotor] = 50;
+		}
+
+		// Button 6U rotates right
+		if (vexRt[Btn6U] == 1) {
+			motor[handMotor] = -50;
 		}
 
 	}
