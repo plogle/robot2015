@@ -32,13 +32,35 @@ int wheelThreshold = 10;
 void openHand() {
 	servo[leftHand] = leftHandOpen;
 	servo[rightHand] = rightHandOpen;
-	delay(200);
 }
 
 void closeHand() {
 	servo[leftHand] = leftHandClose;
 	servo[rightHand] = rightHandClose;
-	delay(200);
+}
+
+void rotateHandLeft() {
+	motor[handMotor] = -50;
+}
+
+void rotateHandRight() {
+	motor[handMotor] = 50;
+}
+
+void rotateHandStop() {
+	motor[handMotor] = 0;
+}
+
+void armRaise() {
+	motor[armMotor] = 50;
+}
+
+void armLower() {
+	motor[armMotor] = -50;
+}
+
+void armStop() {
+	motor[armMotor] = 0;
 }
 
 void tankControl() {
@@ -80,6 +102,36 @@ task main ()
 		} else {
 			closeHand();
 		}
+
+		// If Button 5U pressed rotate hand left
+		if (vexRT[Btn5U] == 1) {
+			rotateHandLeft();
+		} else {
+			rotateHandStop();
+		}
+
+		// If Button 6U pressed rotate hand right
+		if (vexRT[Btn6U] == 1) {
+			rotateHandRight();
+		} else {
+			rotateHandStop();
+		}
+
+		// If Button 5D pressed raise Arm
+		if (vexRT[Btn5D] == 1) {
+			armRaise();
+		} else {
+			armStop();
+		}
+
+		// If Button 5D pressed raise Arm
+		if (vexRT[Btn6D] == 1) {
+			armLower();
+		} else {
+			armStop();
+		}
+
+		delay(200);
 
 	}
 
