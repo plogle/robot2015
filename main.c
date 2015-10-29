@@ -26,73 +26,65 @@ task main ()
 	int  maxServoNeg = -127;
 	int  servoIncrement = 10;
 
-	motor[handServo] = handState1;
-	motor[handServo2] = handState2;
+	int threshold = 10;
 
 	wait1Msec(2000);
 
 	while(true) {
 
-		motor[leftMotor]  = vexRT[Ch3];   // Left Joystick Y value
-		motor[rightMotor] = vexRT[Ch2];   // Right Joystick Y value.
+		// If greater then threshold set, otherwise set to 0
+		if (vexRT[Ch3] > threshold || vexRT[ch3] < -threshold) {
+			motor[leftMotor]  = vexRT[Ch3];   // Left Joystick Y value
+		} else {
+			motor[leftMotor] = 0;
+		}
+
+		// If greater then threshold set, otherwise set to 0
+		if (vexRT[Ch2] > threshold || vexRT[ch2] < -threshold) {
+			motor[rightMotor]  = vexRT[Ch2];   // Right Joystick Y value
+		} else {
+			motor[rightMotor] = 0;
+		}
 
 		// Open hand
 		if (vexRT[Btn8D] == 1) {
 
 			if (handState1 < maxServoPos) {
-
 				handState1 += servoIncrement;
 				handState2 -= servoIncrement;
-
 			}
 
 			motor[handServo] = handState1;
 			motor[handServo2] = handState2;
-
 		}
 
 		// Close Hand
 		if (vexRT[Btn8U] == 1) {
 
 			if (handState1 > maxServoNeg ) {
-
 				handState1 -= servoIncrement;
 				handState2 += servoIncrement;
-
 			}
 
 			motor[handServo] = handState1;
 			motor[handServo2] = handState2;
-
 		}
 
 		// Button 5D raises arm
 		if (vexRT[Btn5D] == 1) {
 			motor[armMotor] = 100;
-		}
-
-		// Button 6D lowers arm
-		if (vexRT[Btn6D] == 1) {
+		} else if (vexRT[Btn6D] == 1) {
 			motor[armMotor] = -100;
-		}
-
-		// If neither pressed stop motor
-		if (vexRT[Btn6D] == 0 && vexRT[Btn5u] == 0) {
+		} else {
 			motor[armMotor] = 0;
 		}
 
 		// Button 5U rotates hand left
-		if (vexRt[Btn5U] == 1) {
+		if (vexRT[Btn5U] == 1) {
 			motor[handMotor] = 100;
-		}
-
-		// Button 6U rotates hand right
-		if (vexRt[Btn6U] == 1) {
+		} else if (vexRT[Btn6U] == 1) {
 			motor[handMotor] = -100;
-		}
-
-		// If neither pressed stop motor
-		if (vexRt[Btn5U] == 0 && vexRt[Btn6U] == 0) {
+		} else {
 			motor[handMotor] = 0;
 		}
 
