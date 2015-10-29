@@ -19,22 +19,56 @@
 		Btn8D - Open Hand
 ******************************************/
 
+// Left Side of hand
+int leftHandClose = 0;
+int leftHandOpen = 127;
+int leftHandValue = 0;
+
+// Right side of hand
+int rightHandClose = 0;
+int rightHandOpen = -127;
+int leftHandValue = 0;
+
+int wheelThreshold = 10;
+
+void openHand() {
+	if (lefthandValue != leftHandOpen) {
+		servo[leftHand] = leftHandOpen;
+		servo[rightHand] = rightHandOpen;
+	}
+}
+
+void closeHand() {
+	if (lefthandValue != leftHandClose) {
+		servo[leftHand] = leftHandClose;
+		servo[rightHand] = rightHandClose;
+	}
+}
+
+void tankControl() {
+	int positiveThreshold = wheelThreshold;
+	int negativeThreshold = wheelThreshold - (wheelThreshold * 2);
+
+	// Check if Left Joystick is outside of threshold then update motor speed
+	if (vexRT[Ch3] => positiveThreshold || vexRT[Ch3] <= negativeThreshold) {
+		motor[leftWheel] = vexRT[Ch3];
+	} else {
+		motor[leftWheel] = 0;
+	}
+
+	// Check if Left Joystick is outside of threshold then update motor speed
+	if (vexRT[Ch2] => positiveThreshold || vexRT[Ch2] <= negativeThreshold) {
+		motor[rightWheel] = vexRT[Ch2];
+	} else {
+		motor[rightWheel] = 0;
+	}
+}
+
+
 task main ()
 {
-	// Hand Servo Closed Values
-	int leftHandClose = 0;
-	int leftHandOpen = 127;
-	int leftHandValue = 0;
-
-	int rightHandClose = 0;
-	int rightHandOpen = -127;
-	int rightHandValue = 0;
-
-	int servoIncrement = 10;
-
 	// Set Hand to closed by default.
-	motor[leftHand] = leftHandClose;
-	motor[rightHand] = rightHandClose;
+	closeHand();
 
 	wait1Msec(2000);
 
@@ -42,36 +76,17 @@ task main ()
 	while(1 == 1) {
 
 		// Update Wheel Positions to current joystick values
-		//motor[leftWheel] = vexRT[Ch3]; // Left Joystick Y value
-		//motor[rightWheel] = vexRT[Ch2]; // Right Joystick Y value.
+		tankControl();
 
 		// If Button 8D is pressed open hand.
 		if (vexRT[Btn8D] == 1) {
-			if (leftHandValue < leftHandOpen) {
-				leftHandValue += servoIncrement;
-			}
-
-			if (rightHandValue > rightHandOpen) {
-				rightHandValue -= servoIncrement;
-			}
-
-			motor[leftHand] = leftHandValue;
-			motor[rightHand] = rightHandValue;
+			openHand();
 		} else {
-			if (leftHandValue > leftHandClose) {
-				leftHandValue -= servoIncrement;
-			}
-
-			if (rightHandValue < rightHandClose) {
-				rightHandValue += servoIncrement;
-			}
-
-			motor[leftHand] = leftHandValue;
-			motor[rightHand] = rightHandValue;
+			closeHand();
 		}
 
-		// Add delay to keep this from updating the value every clock cycle
-		delay(2000);
+		delay(200);
+
 	}
 
 }
