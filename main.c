@@ -7,42 +7,38 @@
 
 
 /******************************************
-	Joystick mapping:
-		Ch3 - Left Joystick up/down
-		Ch2 - Right Joystick up/down
+Joystick mapping:
+	Ch3 - Left Joystick up/down
+	Ch2 - Right Joystick up/down
 
-	Buttons mapping:
-		Btn5U - Hand Rotate Left
-		Btn6U - Hand Rotate Right
-		Btn5D - Raise Arm
-		Btn6D - Lower Arm
-		Btn8D - Open Hand
+Buttons mapping:
+	Btn5U - Hand Rotate Left
+	Btn6U - Hand Rotate Right
+	Btn5D - Raise Arm
+	Btn6D - Lower Arm
+	Btn8D - Open Hand
 ******************************************/
 
 // Left Side of hand
 int leftHandClose = 0;
 int leftHandOpen = 127;
-int leftHandValue = 0;
 
 // Right side of hand
 int rightHandClose = 0;
 int rightHandOpen = -127;
-int leftHandValue = 0;
 
 int wheelThreshold = 10;
 
 void openHand() {
-	if (lefthandValue != leftHandOpen) {
-		servo[leftHand] = leftHandOpen;
-		servo[rightHand] = rightHandOpen;
-	}
+	servo[leftHand] = leftHandOpen;
+	servo[rightHand] = rightHandOpen;
+	delay(200);
 }
 
 void closeHand() {
-	if (lefthandValue != leftHandClose) {
-		servo[leftHand] = leftHandClose;
-		servo[rightHand] = rightHandClose;
-	}
+	servo[leftHand] = leftHandClose;
+	servo[rightHand] = rightHandClose;
+	delay(200);
 }
 
 void tankControl() {
@@ -70,10 +66,10 @@ task main ()
 	// Set Hand to closed by default.
 	closeHand();
 
-	wait1Msec(2000);
+	delay(200);
 
 	// Main execution loop
-	while(1 == 1) {
+	while (true) {
 
 		// Update Wheel Positions to current joystick values
 		tankControl();
@@ -84,8 +80,6 @@ task main ()
 		} else {
 			closeHand();
 		}
-
-		delay(200);
 
 	}
 
