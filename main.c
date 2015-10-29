@@ -1,8 +1,8 @@
 #pragma config(Motor, port3, leftMotor, tmotorVex393_MC29, openLoop)
 #pragma config(Motor, port4, rightMotor, tmotorVex393_MC29, openLoop, reversed)
 #pragma config(Motor, port5, handServo, tmotorServoStandard, openLoop)
-#pragma config(Motor, port7, handServo2, tmotorVex269_MC29, openLoop)
-#pragma config(Motor, port8, handMotor, tmotorServoStandard, openLoop)
+#pragma config(Motor, port7, handServo2, tmotorServoStandard, openLoop)
+#pragma config(Motor, port8, handMotor, tmotorVex393_MC29, openLoop)
 #pragma config(Motor, port9, armMotor, tmotorVex269_MC29, openLoop)
 
 /******************************************
