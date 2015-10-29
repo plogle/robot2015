@@ -1,16 +1,9 @@
-// Wheel Motors
-#pragma config(Motor, port3, leftMotor, tmotorVex393_MC29, openLoop)
-#pragma config(Motor, port4, rightMotor, tmotorVex393_MC29, openLoop, reversed)
-
-// Hand open/close servos
-#pragma config(Motor, port5, leftHand, tmotorServoStandard, openLoop)
-#pragma config(Motor, port8, rightHand, tmotorServoStandard, openLoop)
-
-// Hand Rotate Motor
-#pragma config(Motor, port7, handMotor, tmotorVex269_MC29, openLoop)
-
-// Arm Raise / Lower Motor
-#pragma config(Motor, port9, armMotor, tmotorVex269_MC29, openLoop)
+#pragma config(Motor, port3, leftWheel, tmotorVex393_MC29, openLoop) // Left Wheel
+#pragma config(Motor, port4, rightWheel, tmotorVex393_MC29, openLoop, reversed) // Right Wheel
+#pragma config(Motor, port5, leftHand, tmotorServoStandard, openLoop) // Left side of hand
+#pragma config(Motor, port8, rightHand, tmotorServoStandard, openLoop) // right side of hand
+#pragma config(Motor, port7, handMotor, tmotorVex269_MC29, openLoop) // Rotate Arm
+#pragma config(Motor, port9, armMotor, tmotorVex269_MC29, openLoop) // Arm Raise / Lower Motor
 
 
 /*
@@ -43,8 +36,8 @@ task main ()
 	while(1 == 1) {
 
 		// Update Wheel Positions to current joystick values
-		motor[leftMotor] = vexRT[Ch3];   // Left Joystick Y value
-		motor[rightMotor] = vexRT[Ch2];   // Right Joystick Y value.
+		motor[leftWheel] = vexRT[Ch3]; // Left Joystick Y value
+		motor[rightWheel] = vexRT[Ch2]; // Right Joystick Y value.
 
 		// If Button 8D is pressed open hand.
 		if (vexRT[Btn8D] == 1) {
