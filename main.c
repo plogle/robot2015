@@ -20,11 +20,9 @@ Buttons mapping:
 
 task main ()
 {
-	int  handState1 = 0;
-	int  handState2 = 0;
-	int  maxServoPos = 127;
-	int  maxServoNeg = -127;
-	int  servoIncrement = 10;
+	int maxServoPos = 127;
+	int maxServoNeg = -127;
+	int servoIncrement = 10;
 
 	int threshold = 10;
 
@@ -49,21 +47,18 @@ task main ()
 		// Open hand
 		if (vexRT[Btn8D] == 1) {
 
-			if (handState1 < maxServoPos) {
-				handState1 += servoIncrement;
-				handState2 -= servoIncrement;
+			if (motor[handServo] < maxServoPos) {
+				motor[handServo] = motor[handServo] + servoIncrement;
+				motor[handServo2] = motor[handServo2] + servoIncrement;
 			}
-
-			motor[handServo] = handState1;
-			motor[handServo2] = handState2;
 		}
 
 		// Close Hand
 		if (vexRT[Btn8U] == 1) {
 
-			if (handState1 > maxServoNeg ) {
-				handState1 -= servoIncrement;
-				handState2 += servoIncrement;
+			if (motor[handServo] > maxServoNeg ) {
+				motor[handServo] = motor[handServo] - servoIncrement;
+				motor[handServo2] = motor[handServo2] - servoIncrement;
 			}
 
 			motor[handServo] = handState1;
