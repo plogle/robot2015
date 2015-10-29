@@ -60,9 +60,6 @@ task main ()
 				motor[handServo] = motor[handServo] - servoIncrement;
 				motor[handServo2] = motor[handServo2] - servoIncrement;
 			}
-
-			motor[handServo] = handState1;
-			motor[handServo2] = handState2;
 		}
 
 		// Button 5D raises arm
