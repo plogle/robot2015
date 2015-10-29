@@ -3,8 +3,8 @@
 #pragma config(Motor, port4, rightMotor, tmotorVex393_MC29, openLoop, reversed)
 
 // Hand open/close servos
-#pragma config(Motor, port5, handServo, tmotorServoStandard, openLoop)
-#pragma config(Motor, port8, handServo2, tmotorServoStandard, openLoop)
+#pragma config(Motor, port5, leftHand, tmotorServoStandard, openLoop)
+#pragma config(Motor, port8, rightHand, tmotorServoStandard, openLoop)
 
 // Hand Rotate Motor
 #pragma config(Motor, port7, handMotor, tmotorVex269_MC29, openLoop)
@@ -28,48 +28,32 @@
 
 task main ()
 {
-	int  handState1 = 0;
-	int  handState2 = 0;
-	int  maxServoPos = 127;
-	int  maxServoNeg = -127;
-	int  servoIncrement = 10;
+	int  leftHandClose = 0;
+	int  rightHandClose = 0;
 
-	motor[handServo] = handState1;
-	motor[handServo2] = handState2;
+	int  leftHandOpen = 127;
+	int  rightHandOpen = -127;
+
+	// Set Servos to closed.
+	motor[leftHand] = leftHandClose;
+	motor[rightHand] = rightHandClose;
 
 	wait1Msec(2000);
 
 	while(1 == 1) {
 
-		motor[leftMotor]  = vexRT[Ch3];   // Left Joystick Y value
+		// Update Wheel Positions to current joystick values
+		motor[leftMotor] = vexRT[Ch3];   // Left Joystick Y value
 		motor[rightMotor] = vexRT[Ch2];   // Right Joystick Y value.
-		motor[armMotor] = vexRT[Ch4];  // Arm motor
-		motor[handMotor] = vexRT[Ch1];  // Hand motor
 
-		if (vexRT[Btn5U] == 1) {
-
-			if (handState1 < maxServoPos) {
-
-				handState1 += servoIncrement;
-				handState2 -= servoIncrement;
-			}
-
-			motor[handServo] = handState1;
-			motor[handServo2] = handState2;
+		// If Button 8D is pressed open hand.
+		if (vexRT[Btn8D] == 1) {
+			motor[leftHand] = leftHandOpen;
+			motor[rightHand] = rightHandOpen;
+		} else {
+			motor[leftHand] = leftHandClose;
+			motor[rightHand] = rightHandClose;
 		}
-
-		if (vexRT[Btn5D] == 1) {
-
-			if (handState1 > maxServoNeg ) {
-
-				handState1 -= servoIncrement;
-				handState2 += servoIncrement;
-			}
-
-			motor[handServo] = handState1;
-			motor[handServo2] = handState2;
-		}
-
 
 	}
 
