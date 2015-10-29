@@ -26,20 +26,18 @@ task main ()
 
 	int threshold = 10;
 
-	wait1Msec(2000);
-
 	while (true) {
 
 		// If greater then threshold set, otherwise set to 0
 		if (vexRT[Ch3] > threshold || vexRT[Ch3] < -threshold) {
-			motor[leftMotor]  = vexRT[Ch3];   // Left Joystick Y value
+			motor[leftMotor] = vexRT[Ch3];   // Left Joystick Y value
 		} else {
 			motor[leftMotor] = 0;
 		}
 
 		// If greater then threshold set, otherwise set to 0
 		if (vexRT[Ch2] > threshold || vexRT[Ch2] < -threshold) {
-			motor[rightMotor]  = vexRT[Ch2];   // Right Joystick Y value
+			motor[rightMotor] = vexRT[Ch2];   // Right Joystick Y value
 		} else {
 			motor[rightMotor] = 0;
 		}
@@ -49,7 +47,7 @@ task main ()
 
 			if (motor[handServo] < maxServoPos) {
 				motor[handServo] = motor[handServo] + servoIncrement;
-				motor[handServo2] = motor[handServo2] + servoIncrement;
+				motor[handServo2] = motor[handServo2] - servoIncrement;
 			}
 		}
 
@@ -58,7 +56,7 @@ task main ()
 
 			if (motor[handServo] > maxServoNeg ) {
 				motor[handServo] = motor[handServo] - servoIncrement;
-				motor[handServo2] = motor[handServo2] - servoIncrement;
+				motor[handServo2] = motor[handServo2] + servoIncrement;
 			}
 		}
 
