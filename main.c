@@ -28,17 +28,17 @@ task main ()
 
 	wait1Msec(2000);
 
-	while(true) {
+	while (true) {
 
 		// If greater then threshold set, otherwise set to 0
-		if (vexRT[Ch3] > threshold || vexRT[ch3] < -threshold) {
+		if (vexRT[Ch3] > threshold || vexRT[Ch3] < -threshold) {
 			motor[leftMotor]  = vexRT[Ch3];   // Left Joystick Y value
 		} else {
 			motor[leftMotor] = 0;
 		}
 
 		// If greater then threshold set, otherwise set to 0
-		if (vexRT[Ch2] > threshold || vexRT[ch2] < -threshold) {
+		if (vexRT[Ch2] > threshold || vexRT[Ch2] < -threshold) {
 			motor[rightMotor]  = vexRT[Ch2];   // Right Joystick Y value
 		} else {
 			motor[rightMotor] = 0;
