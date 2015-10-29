@@ -6,7 +6,7 @@
 #pragma config(Motor, port9, armMotor, tmotorVex269_MC29, openLoop) // Arm Raise / Lower Motor
 
 
-/************************************
+/******************************************
 	Joystick mapping:
 		Ch3 - Left Joystick up/down
 		Ch2 - Right Joystick up/down
@@ -17,7 +17,7 @@
 		Btn5D - Raise Arm
 		Btn6D - Lower Arm
 		Btn8D - Open Hand
-*************************************/
+******************************************/
 
 task main ()
 {
@@ -51,6 +51,8 @@ task main ()
 			motor[rightHand] = rightHandClose;
 		}
 
+		// Add delay to keep this from updating the value every clock cycle
+		delay(1000);
 	}
 
 }
