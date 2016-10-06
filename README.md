@@ -1,4 +1,7 @@
 # robot2015
+
+Tank style controls.  Arm that raises and lowers.  Hand that rotates, and opens and closes
+
 Joystick mapping:
 *	Ch3 - Left Joystick up/down
 *	Ch2 - Right Joystick up/down
