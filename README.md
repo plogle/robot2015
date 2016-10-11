@@ -13,3 +13,13 @@ Buttons mapping:
 *	Btn6D - Lower Arm
 *	Btn8D - Open Hand
 *	Btn8U - Closes Hand
+
+Motor Mapping:
+* port3 - Left Wheel
+* port3 - Right Wheel
+* port8 - Hand Rotate
+* port9 - Arm Up and down
+
+Servo Mapping:
+* port5 - Left side of hand
+* port7 - Right side of hand
